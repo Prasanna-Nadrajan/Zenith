@@ -14,6 +14,9 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
     
+    @Column(name = "name")
+    private String name;
+    
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     
@@ -23,6 +26,12 @@ public class User {
     
     public User(String email) {
         this.email = email;
+        this.createdAt = LocalDateTime.now();
+    }
+    
+    public User(String email, String name) {
+        this.email = email;
+        this.name = name;
         this.createdAt = LocalDateTime.now();
     }
     
@@ -41,6 +50,14 @@ public class User {
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
     }
     
     public LocalDateTime getCreatedAt() {

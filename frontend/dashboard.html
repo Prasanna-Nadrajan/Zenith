@@ -12,6 +12,7 @@
             <header class="dashboard-header">
                 <h1>Event Dashboard</h1>
                 <div class="user-info">
+                    <span id="userName"></span>
                     <span id="userEmail"></span>
                     <button onclick="logout()" class="btn btn-secondary btn-small">Logout</button>
                 </div>
@@ -41,6 +42,37 @@
                                 placeholder="Join us for a fun evening..."
                                 required
                             ></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventDateTime">Event Date & Time</label>
+                            <input 
+                                type="datetime-local" 
+                                id="eventDateTime" 
+                                name="eventDateTime" 
+                                required
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input 
+                                    type="checkbox" 
+                                    id="isOnlineEvent" 
+                                    name="isOnline"
+                                >
+                                This is an online event
+                            </label>
+                        </div>
+                        
+                        <div class="form-group" id="locationGroup">
+                            <label for="eventLocation">Location</label>
+                            <input 
+                                type="text" 
+                                id="eventLocation" 
+                                name="location" 
+                                placeholder="123 Main Street, City"
+                            >
                         </div>
                         
                         <button type="submit" class="btn btn-primary">
@@ -90,6 +122,20 @@
                         <p class="loading">Loading...</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Attendees Modal -->
+    <div id="attendeesModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Event Attendees</h2>
+                <button class="modal-close" onclick="closeAttendeesModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3 id="modalEventTitle"></h3>
+                <div id="attendeesList"></div>
             </div>
         </div>
     </div>

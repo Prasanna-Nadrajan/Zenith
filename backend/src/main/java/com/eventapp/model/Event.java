@@ -24,18 +24,32 @@ public class Event {
     @JoinColumn(name = "host_id", nullable = false)
     private User host;
     
+    @Column(name = "event_date_time", nullable = false)
+    private LocalDateTime eventDateTime;
+    
+    @Column(name = "location")
+    private String location;
+    
+    @Column(name = "is_online", nullable = false)
+    private Boolean isOnline;
+    
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     
     public Event() {
         this.createdAt = LocalDateTime.now();
+        this.isOnline = false;
     }
     
-    public Event(String title, String description, String eventCode, User host) {
+    public Event(String title, String description, String eventCode, User host, 
+                 LocalDateTime eventDateTime, String location, Boolean isOnline) {
         this.title = title;
         this.description = description;
         this.eventCode = eventCode;
         this.host = host;
+        this.eventDateTime = eventDateTime;
+        this.location = location;
+        this.isOnline = isOnline;
         this.createdAt = LocalDateTime.now();
     }
     
@@ -78,6 +92,30 @@ public class Event {
     
     public void setHost(User host) {
         this.host = host;
+    }
+    
+    public LocalDateTime getEventDateTime() {
+        return eventDateTime;
+    }
+    
+    public void setEventDateTime(LocalDateTime eventDateTime) {
+        this.eventDateTime = eventDateTime;
+    }
+    
+    public String getLocation() {
+        return location;
+    }
+    
+    public void setLocation(String location) {
+        this.location = location;
+    }
+    
+    public Boolean getIsOnline() {
+        return isOnline;
+    }
+    
+    public void setIsOnline(Boolean isOnline) {
+        this.isOnline = isOnline;
     }
     
     public LocalDateTime getCreatedAt() {

@@ -7,9 +7,10 @@ import com.eventapp.repository.EventRepository;
 import com.eventapp.repository.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,9 +22,11 @@ public class EventService {
     @Autowired
     private RegistrationRepository registrationRepository;
     
-    public Event createEvent(String title, String description, User host) {
+    public Event createEvent(String title, String description, LocalDateTime eventDateTime,
+                            String location, Boolean isOnline, User host) {
         String eventCode = generateUniqueEventCode();
-        Event event = new Event(title, description, eventCode, host);
+        Event event = new Event(title, description, eventCode, host, 
+                               eventDateTime, location, isOnline);
         return eventRepository.save(event);
     }
     
@@ -74,6 +77,46 @@ public class EventService {
         List<Registration> registrations = registrationRepository.findByUser(user);
         return registrations.stream()
                 .map(Registration::getEvent)
+                .collect(Collectors.toList());
+    }
+    
+    @Transactional
+    public void deleteEvent(Long eventId) throws Exception {
+        Optional<Event> eventOpt = eventRepository.findById(eventId);
+        
+        if (eventOpt.isEmpty()) {
+            throw new Exception("Event not found");
+        }
+        
+        Event event = eventOpt.get();
+        
+        // Delete all registrations for this event first
+        List<Registration> registrations = registrationRepository.findByEvent(event);
+        registrationRepository.deleteAll(registrations);
+        
+        // Delete the event
+        eventRepository.delete(event);
+    }
+    
+    public List<Map<String, Object>> getEventAttendees(Long eventId) throws Exception {
+        Optional<Event> eventOpt = eventRepository.findById(eventId);
+        
+        if (eventOpt.isEmpty()) {
+            throw new Exception("Event not found");
+        }
+        
+        Event event = eventOpt.get();
+        List<Registration> registrations = registrationRepository.findByEvent(event);
+        
+        return registrations.stream()
+                .map(registration -> {
+                    Map<String, Object> attendeeInfo = new HashMap<>();
+                    User user = registration.getUser();
+                    attendeeInfo.put("name", user.getName());
+                    attendeeInfo.put("email", user.getEmail());
+                    attendeeInfo.put("registeredAt", registration.getRegisteredAt());
+                    return attendeeInfo;
+                })
                 .collect(Collectors.toList());
     }
 }

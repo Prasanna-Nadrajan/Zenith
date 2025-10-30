@@ -4,6 +4,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const email = document.getElementById('email').value.trim();
+    const name = document.getElementById('name').value.trim();
     const errorMessage = document.getElementById('errorMessage');
     
     errorMessage.style.display = 'none';
@@ -14,12 +15,17 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     }
     
     try {
+        const payload = { email };
+        if (name) {
+            payload.name = name;
+        }
+        
         const response = await fetch(`${API_BASE_URL}/users/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email })
+            body: JSON.stringify(payload)
         });
         
         const data = await response.json();

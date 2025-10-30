@@ -19,12 +19,13 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody Map<String, String> payload) {
         try {
             String email = payload.get("email");
+            String name = payload.get("name");
             
             if (email == null || email.trim().isEmpty()) {
                 return ResponseEntity.badRequest().body(Map.of("error", "Email is required"));
             }
             
-            User user = userService.loginOrRegister(email);
+            User user = userService.loginOrRegister(email, name);
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             return ResponseEntity.internalServerError()

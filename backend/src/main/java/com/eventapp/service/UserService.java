@@ -12,13 +12,13 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     
-    public User loginOrRegister(String email) {
+    public User loginOrRegister(String email, String name) {
         Optional<User> existingUser = userRepository.findByEmail(email);
         
         if (existingUser.isPresent()) {
             return existingUser.get();
         } else {
-            User newUser = new User(email);
+            User newUser = new User(email, name);
             return userRepository.save(newUser);
         }
     }
