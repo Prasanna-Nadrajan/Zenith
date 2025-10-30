@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard">
+            <header class="dashboard-header">
+                <h1>Event Dashboard</h1>
+                <div class="user-info">
+                    <span id="userEmail"></span>
+                    <button onclick="logout()" class="btn btn-secondary btn-small">Logout</button>
+                </div>
+            </header>
+            
+            <div class="actions-section">
+                <div class="action-card">
+                    <h2>Create an Event</h2>
+                    <form id="createEventForm">
+                        <div class="form-group">
+                            <label for="eventTitle">Event Title</label>
+                            <input 
+                                type="text" 
+                                id="eventTitle" 
+                                name="title" 
+                                placeholder="Summer BBQ Party" 
+                                required
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventDescription">Event Description</label>
+                            <textarea 
+                                id="eventDescription" 
+                                name="description" 
+                                rows="3" 
+                                placeholder="Join us for a fun evening..."
+                                required
+                            ></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            Create Event
+                        </button>
+                    </form>
+                    
+                    <div id="createSuccessMessage" class="success-message" style="display: none;"></div>
+                    <div id="createErrorMessage" class="error-message" style="display: none;"></div>
+                </div>
+                
+                <div class="action-card">
+                    <h2>Register for an Event</h2>
+                    <form id="registerEventForm">
+                        <div class="form-group">
+                            <label for="eventCode">Event Code</label>
+                            <input 
+                                type="text" 
+                                id="eventCode" 
+                                name="eventCode" 
+                                placeholder="EVT-XXXX" 
+                                required
+                            >
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            Register
+                        </button>
+                    </form>
+                    
+                    <div id="registerSuccessMessage" class="success-message" style="display: none;"></div>
+                    <div id="registerErrorMessage" class="error-message" style="display: none;"></div>
+                </div>
+            </div>
+            
+            <div class="events-section">
+                <div class="event-list">
+                    <h2>Events I'm Hosting</h2>
+                    <div id="hostedEventsList" class="event-items">
+                        <p class="loading">Loading...</p>
+                    </div>
+                </div>
+                
+                <div class="event-list">
+                    <h2>Events I'm Attending</h2>
+                    <div id="attendingEventsList" class="event-items">
+                        <p class="loading">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

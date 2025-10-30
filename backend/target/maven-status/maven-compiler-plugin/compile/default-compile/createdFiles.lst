@@ -1,0 +1,11 @@
+com\eventapp\repository\RegistrationRepository.class
+com\eventapp\service\EventService.class
+com\eventapp\repository\UserRepository.class
+com\eventapp\model\User.class
+com\eventapp\model\Registration.class
+com\eventapp\repository\EventRepository.class
+com\eventapp\controller\EventController.class
+com\eventapp\EventManagementApplication.class
+com\eventapp\model\Event.class
+com\eventapp\service\UserService.class
+com\eventapp\controller\UserController.class
